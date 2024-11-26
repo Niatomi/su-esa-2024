@@ -1,0 +1,58 @@
+version: "3.1"
+services:
+  glassfish:
+    image: glassfish:4.1
+    ports:
+      - "4848:4848"
+      - "4849:8080"
+    command: bash /usr/local/glassfish4/glassfish/config/start.sh
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./docker/glassfish/start.sh:/usr/local/glassfish4/glassfish/config/start.sh
+      - ./docker/glassfish/0_passwords.txt:/etc/0_passwords.txt
+      - ./docker/glassfish/1_passwords.txt:/etc/1_passwords.txt
+      # - ./docker/glassfish/config:/usr/local/glassfish4/glassfish/config
+
+  postgres:
+    image: postgres:16
+    command: postgres -c 'max_connections=200'
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./docker/postgres/entry:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4:7.0
+    user: root
+    environment:
+      PGADMIN_DEFAULT_EMAIL: playervoker@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: test
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      MASTER_PASSWORD_REQUIRED: "False"
+    volumes:
+      - ./docker/pgadmin/pgadmin:/var/lib/pgadmin
+      - ./docker/pgadmin/servers.json:/pgadmin4/servers.json
+    ports:
+      - "4040:80"
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+  dozzle:
+    image: amir20/dozzle:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - 8888:8080
+
+volumes:
+  postgres:
+  pgadmin:
+  data: {}
