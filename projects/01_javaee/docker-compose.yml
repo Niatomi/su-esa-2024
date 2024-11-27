@@ -11,7 +11,6 @@ services:
       - ./docker/glassfish/start.sh:/usr/local/glassfish4/glassfish/config/start.sh
       - ./docker/glassfish/0_passwords.txt:/etc/0_passwords.txt
       - ./docker/glassfish/1_passwords.txt:/etc/1_passwords.txt
-      # - ./docker/glassfish/config:/usr/local/glassfish4/glassfish/config
 
   postgres:
     image: postgres:16
