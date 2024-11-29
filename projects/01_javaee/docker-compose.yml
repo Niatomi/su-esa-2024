@@ -9,6 +9,7 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
       - ./docker/glassfish/start.sh:/usr/local/glassfish4/glassfish/config/start.sh
+      - ./docker/glassfish/postgresql-42.7.4.jar:/usr/local/glassfish4/glassfish/domains/domain1/lib/postgresql-42.7.4.jar
       - ./docker/glassfish/0_passwords.txt:/etc/0_passwords.txt
       - ./docker/glassfish/1_passwords.txt:/etc/1_passwords.txt
 

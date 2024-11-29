@@ -2,12 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package ru.niatomi.music.player;
+package ru.niatomi.musicplayer.view;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
-import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author nia
  */
-@WebServlet(name = "TestServlet", urlPatterns = {"/TestServlet"})
-public class TestServlet extends HttpServlet {
+@WebServlet(name = "Song", urlPatterns = {"/song"})
+public class Song extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,33 +31,15 @@ public class TestServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        Map<String, String[]> parameterMap = request.getParameterMap();
-        
-        Set<String> keySet = parameterMap.keySet();
-        for (String key : parameterMap.keySet()) {
-            String msg = "Key is {} value is {}!".format(key, parameterMap.get(key)[0]);
-            log(msg);
-        };
-        
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");
+            out.println("<title>Servlet Song</title>");
             out.println("</head>");
             out.println("<body>");
-            for (String key : parameterMap.keySet()) {
-                out.println("<p>");
-                out.println(key);
-                out.println("=");
-                out.println("[");
-                out.println(parameterMap.get(key)[0].toString());
-                out.println("]");
-                out.println("</p>");
-            };
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Song at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
