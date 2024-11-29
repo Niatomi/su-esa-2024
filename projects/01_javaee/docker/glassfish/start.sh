@@ -14,4 +14,6 @@ asadmin --user=admin --passwordfile=$PWD_FILE enable-secure-admin
 
 asadmin stop-domain
 
+cp /usr/local/glassfish4/glassfish/domains/domain1/config/.domain.xml /usr/local/glassfish4/glassfish/domains/domain1/config/domain.xml
+
 asadmin start-domain --verbose
