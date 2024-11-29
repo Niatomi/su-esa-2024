@@ -60,8 +60,7 @@ public class ArtistsServlet extends HttpServlet {
 
 
         Artist a = new Artist();
-        a.setId(1);
-        a.setName("Periphery");
+        a.setName("Polyphia");
         po.saveUser(a);
 
         response.setContentType("text/html;charset=UTF-8");
@@ -82,22 +81,6 @@ public class ArtistsServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
-    // + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request  servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -107,7 +90,7 @@ public class ArtistsServlet extends HttpServlet {
      * @throws IOException      if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
