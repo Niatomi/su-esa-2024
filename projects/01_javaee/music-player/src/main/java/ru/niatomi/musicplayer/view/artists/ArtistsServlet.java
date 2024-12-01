@@ -6,63 +6,49 @@ package ru.niatomi.musicplayer.view.artists;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map;
+import java.util.Set;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateful;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ru.niatomi.musicplayer.models.PersistanceObject;
 import ru.niatomi.musicplayer.models.domain.Artist;
+import ru.niatomi.musicplayer.service.ArtistsService;
+import ru.niatomi.musicplayer.view.utils.HTMLComponents;
+import ru.niatomi.musicplayer.view.utils.JSFetchArgs;
+import ru.niatomi.musicplayer.view.utils.PathResolver;
 
 /**
  *
  * @author nia
  */
+
 @WebServlet(name = "Artists", urlPatterns = { "/artists" })
+@Stateful
 public class ArtistsServlet extends HttpServlet {
 
     @EJB
-    PersistanceObject po;
+    private ArtistsService as;
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Handles the HTTP <code>POST</code> method.
      *
      * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException      if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        final int ARTIST_AMMOUNT = 10;
-        List<Artist> artists = new ArrayList<>();
-
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
-        Artist a = new Artist();
-        a.setName("Polyphia");
-        po.saveUser(a);
-
+        List<Artist> artists = as.getArtists();
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -72,10 +58,24 @@ public class ArtistsServlet extends HttpServlet {
             out.println("<title>Servlet Artists</title>");
             out.println("</head>");
             out.println("<body>");
-            for (Artist artist : artists) {
-                out.println(artist.toString());
+            out.println("<h1>Artists Page</h1>");
+            out.println("<hr/>");
+            for (Artist a : artists) {
+                out.println("<span>");
+
+                out.println("<p>");
+                out.println(a.getName());
+                out.println("</p>");
+
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("artist_id", a.getId().toString());
+                String postJSFetch = JSFetchArgs.postJSFetch(request.getContextPath() + "/artists", params);
+                out.println(String.format(HTMLComponents.HTML_BTN, "Go to " + a.getName() + " page", postJSFetch));
+
+                out.println("</span>");
+                out.println("<hr/>");
+
             }
-            out.println("<h1>Servlet Artists at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -90,9 +90,17 @@ public class ArtistsServlet extends HttpServlet {
      * @throws IOException      if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        // processRequest(request, response);
+        Set<String> keySet = request.getParameterMap().keySet();
+        if (keySet.isEmpty() || !keySet.contains("artist_id")) {
+            response.sendError(0, "artist_id is required");
+        }
+        Integer artistId = Integer.valueOf(request.getParameter("artist_id"));
+        
+        String target = PathResolver.to("artist", "artists", request);
+        response.sendRedirect(target + "?id=" + artistId.toString());
     }
 
 }
