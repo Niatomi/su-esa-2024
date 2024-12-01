@@ -6,7 +6,9 @@
     <persistence-unit name="my_persistence_unit">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <class>ru.niatomi.models.domain.Artist</class>
-        <class>ru.niatomi.models.PersistanceObject</class>
+        <class>ru.niatomi.models.domain.Song</class>
+        <class>ru.niatomi.models.domain.Album</class>
+
         <properties>
             <property name="javax.persistence.jdbc.url"
                 value="jdbc:postgresql://postgres:5432/music_bucket" />
