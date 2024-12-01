@@ -7,10 +7,18 @@ package ru.niatomi.musicplayer.models.domain;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
@@ -20,19 +28,28 @@ import lombok.ToString;
  *
  * @author nia
  */
-//@Entity
+@Entity
 @Data
 @RequiredArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class Song implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@Table(name = "songs")
+public class Song {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
-    private List<Artist> artists;
+    private Integer id;
     private String name;
-
+    
+    @Column(name = "listen_count")
+    private Integer listenCount;
+    
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "artist_id", referencedColumnName = "id")
+    private Artist artist;
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "album_id")
+    private Album album;
+    
 }

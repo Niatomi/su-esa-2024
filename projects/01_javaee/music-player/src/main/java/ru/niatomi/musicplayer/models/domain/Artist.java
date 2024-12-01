@@ -5,12 +5,16 @@
 package ru.niatomi.musicplayer.models.domain;
 
 
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import javax.persistence.GenerationType;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -34,5 +38,9 @@ public class Artist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    
+    @OneToMany(mappedBy="artist", fetch = FetchType.LAZY)
+    private List<Song> songs;
+    
 
 }
