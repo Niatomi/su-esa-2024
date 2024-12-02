@@ -1,3 +1,17 @@
+# Report
+
+Объектная область:
+
+Музыкальный плеер (но без музыки) для подсчёта колличества прослушиваний
+
+## Реализованы следующие страницы
+### Страница артистов
+![Страница артистов](report_assets/artists_page.png)
+### Страница артистА
+![Страница артиста](report_assets/artist_page.png)
+### Страница альбома
+![Страница артиста](report_assets/album_page.png)
+
 # Practical Work #1
 
 Application with common JavaEE architecture
