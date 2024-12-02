@@ -6,7 +6,8 @@ package ru.niatomi.musicplayer.view.artists;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
@@ -16,11 +17,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.NotFoundException;
+import ru.niatomi.musicplayer.models.domain.Album;
 import ru.niatomi.musicplayer.models.domain.Artist;
 import ru.niatomi.musicplayer.models.domain.Song;
 import ru.niatomi.musicplayer.service.ArtistService;
-import ru.niatomi.musicplayer.service.ArtistsService;
-import ru.niatomi.musicplayer.service.StupidService;
+import ru.niatomi.musicplayer.view.utils.HTMLComponents;
+import ru.niatomi.musicplayer.view.utils.JSFetchArgs;
+import ru.niatomi.musicplayer.view.utils.PathResolver;
 
 /**
  *
@@ -43,7 +46,7 @@ public class ArtistServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Set<String> keySet = request.getParameterMap().keySet();
@@ -61,7 +64,7 @@ public class ArtistServlet extends HttpServlet {
             response.sendError(0, e.getMessage());
             return;
         }
-        
+        Set<Album> artistAlbums = as.getArtistAlbums(artist.getId());
         
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -69,12 +72,19 @@ public class ArtistServlet extends HttpServlet {
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Artist: " +  artistName + "</title>");
+            out.println("<meta http-equiv=\"refresh\" content=\"1\">");
             out.println("</head>");
             out.println("<body>");
             
             out.println("<h1>");
             out.println("Artist card: " + artistName);
             out.println("</h1>");
+            
+            Map<String, String> artistParams = new HashMap<String, String>();
+            artistParams.put("artist_id", artist.getId().toString());
+            String postJSFetch = JSFetchArgs.postJSFetch(request.getContextPath() + "/artist", artistParams);
+            out.println(String.format(HTMLComponents.HTML_BTN, "Play songs", postJSFetch));
+            
             out.println("<hr/>");
             out.println("<hr/>");
             
@@ -91,31 +101,38 @@ public class ArtistServlet extends HttpServlet {
                 out.println("Listen count: " + song.getListenCount());
                 out.println("</p>");
                 
+                Map<String, String> songParams = new HashMap<String, String>();
+                songParams.put("song_id", song.getId().toString());
+                postJSFetch = JSFetchArgs.postJSFetch(request.getContextPath() + "/artist", songParams);
+                out.println(String.format(HTMLComponents.HTML_BTN, "Play this song", postJSFetch));
+                
+                out.println("</span>");
+                out.println("<hr/>");
+            }
+            out.println("<hr/>");
+            out.println("<h2>Albums</h2>");
+            for (Album artistAlbum : artistAlbums) {
+                out.println("<hr/>");
+                out.println("<span>");
+                
+                out.println("<p>");
+                out.println(artistAlbum.getAlbumName());
+                out.println("</p>");
+                
+                Map<String, String> songParams = new HashMap<String, String>();
+                songParams.put("album_id", artistAlbum.getId().toString());
+                postJSFetch = JSFetchArgs.postJSFetch(request.getContextPath() + "/artist", songParams);
+                out.println(String.format(HTMLComponents.HTML_BTN, "Go to this album", postJSFetch));
+                
                 out.println("</span>");
                 out.println("<hr/>");
             }
             out.println("<hr/>");
             
             
-            
             out.println("</body>");
             out.println("</html>");
         }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**
@@ -129,7 +146,25 @@ public class ArtistServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        // processRequest(request, response);
+        Set<String> keySet = request.getParameterMap().keySet();
+        if (keySet.isEmpty() || (!keySet.contains("artist_id") && !keySet.contains("song_id") && !keySet.contains("album_id"))) {
+            response.sendError(0, "artist_id or song_id is required");
+        }
+        
+        if (keySet.contains("artist_id")) {
+            Integer artistId = Integer.valueOf(request.getParameter("artist_id"));
+            as.playArtistSongs(artistId);
+        }
+        if (keySet.contains("song_id")) {
+            Integer songId = Integer.valueOf(request.getParameter("song_id"));
+            as.playArtistSong(songId);
+        }
+        if (keySet.contains("album_id")) {
+            Integer albumId = Integer.valueOf(request.getParameter("album_id"));
+            String target = PathResolver.to("album", "artist", request);
+            response.sendRedirect(target + "?id=" + albumId.toString());
+        }
     }
 
     /**
