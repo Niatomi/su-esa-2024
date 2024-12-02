@@ -30,7 +30,6 @@ import lombok.ToString;
 @Data
 @RequiredArgsConstructor
 @ToString
-@EqualsAndHashCode
 @Table(name = "albums")
 public class Album {
 
@@ -44,5 +43,10 @@ public class Album {
     
     @OneToMany(mappedBy = "album")
     private List<Song> songs;
+    
+    @Override
+    public int hashCode() {
+        return id;
+    }
     
 }
