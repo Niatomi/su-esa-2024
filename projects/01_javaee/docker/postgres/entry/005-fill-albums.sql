@@ -6,4 +6,4 @@ VALUES
 ('Master of Puppets'),
 ('Periphery III: Select Difficulty'),
 ('Vulgar Display of Power'),
-('Cowboys From Hell'),
+('Cowboys From Hell');
