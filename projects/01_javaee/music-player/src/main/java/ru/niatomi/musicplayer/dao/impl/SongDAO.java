@@ -46,8 +46,8 @@ public class SongDAO implements GenericDAO<Integer, Song>{
     @Override
     public Song update(Integer key, Song item) {
         Song old = findByKey(key);
-        old.setName(item.getName());
-        entityManager.persist(old);
+        item.setId(old.getId());
+        entityManager.persist(item);
         return old;
     }
 
