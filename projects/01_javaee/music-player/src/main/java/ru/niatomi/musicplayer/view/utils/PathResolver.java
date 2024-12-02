@@ -13,7 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 public class PathResolver {
     
     public static String to(String to, String from, HttpServletRequest origin) {
-        return origin.getHeader("Referer").replaceFirst(from, to);
+        String workingOn = origin.getHeader("Referer");
+        int strUntil = workingOn.length();
+        if (workingOn.contains("?")){
+            strUntil = workingOn.indexOf("?");
+        } 
+        return workingOn.substring(0, strUntil).replaceFirst(from, to);
     }
     
 }
