@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${artist.name} + ' card'"></title>
+</head>
+<body>
+    <h1 th:text="${artist.name} + ' card'"></h1>
+    <form method="POST" th:action="@{/artist(artistId=${artist.id})}">
+        <button type="submit" name="submit" value="value" class="link-button">Play</button>
+    </form>
+    <hr/>
+    <div th:each="song: ${artist.songs}">
+        <hr/>
+        <p th:text="${song.name}" />
+        <p th:text="${song.listenCount}" />
+        <form method="POST" th:action="@{/artist(songId=${song.id})}">
+            <button type="submit" name="submit" value="value" class="link-button">Play song</button>
+        </form>
+        <hr/>
+    </div>
+    <hr/>
+    <h2>Albums</h2>
+    <div th:each="album: ${albums}">
+        <hr/>
+        <p th:text="${album.albumName}" />
+        <input
+                type="button"
+                th:onclick = "|window.location.href='/album?id=${album.id}'|"
+                value="Go to album"
+        />
+        <hr/>
+    </div>
+</body>
+</html>

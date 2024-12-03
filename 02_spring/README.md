@@ -1,3 +1,18 @@
+# Report
+
+Объектная область: из 01_javee
+
+## Реализованы следующие страницы
+
+### Страница артистов
+![Страница артистов](report_assets/artists_page.png)
+
+### Страница артистА
+![Страница артиста](report_assets/artist_page.png)
+
+### Страница альбома
+![Страница артиста](report_assets/album_page.png)
+
 # Practical Work #2
 
 Application using Spring Framework

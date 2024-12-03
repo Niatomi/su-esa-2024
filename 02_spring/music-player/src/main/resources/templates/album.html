@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${album.albumName}" />
+</head>
+<body>
+    <hr/>
+    <h2 th:text="${album.albumName}" />
+    <h2 th:text="'Total listen count is: ' + ${totalCount}" />
+    <hr/>
+    <div th:each="song: ${album.songs}">
+        <hr/>
+        <p th:text="${song.name}" />
+        <p th:text="${song.listenCount}" />
+        <form method="POST" th:action="@{/album(songId=${song.id})}">
+            <button type="submit" name="submit" value="value" class="link-button">Play song</button>
+        </form>
+        <hr/>
+    </div>
+</body>
+</html>
