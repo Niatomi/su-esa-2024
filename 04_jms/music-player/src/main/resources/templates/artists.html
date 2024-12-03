@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Artists page</title>
+</head>
+<body>
+    <h1>Artists page</h1>
+    <hr/>
+    <div th:each="artist: ${artists}">
+        <hr/>
+            <p th:text="${artist.name}" />
+        <input
+            type="button"
+            th:onclick = "|window.location.href='/artist?id=${artist.id}'|"
+            value="Go to artist card"
+        />
+        <hr/>
+    </div>
+</body>
+</html>
