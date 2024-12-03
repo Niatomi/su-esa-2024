@@ -1,0 +1,56 @@
+version: "3.1"
+services:
+
+  postgres:
+    image: postgres:16
+    command: postgres -c 'max_connections=200'
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./docker/postgres/entry:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  nginx:
+    image: nginx
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "443:443"
+
+  pgadmin:
+    image: dpage/pgadmin4:7.0
+    user: root
+    environment:
+      PGADMIN_DEFAULT_EMAIL: playervoker@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: test
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      MASTER_PASSWORD_REQUIRED: "False"
+    volumes:
+      - ./docker/pgadmin/pgadmin:/var/lib/pgadmin
+      - ./docker/pgadmin/servers.json:/pgadmin4/servers.json
+    ports:
+      - "4040:80"
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+  dozzle:
+    image: amir20/dozzle:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - 8888:8080
+
+volumes:
+  postgres:
+  pgadmin:
+  data: {}
