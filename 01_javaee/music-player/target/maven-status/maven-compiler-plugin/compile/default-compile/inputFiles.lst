@@ -1,0 +1,17 @@
+/home/nia/Desktop/su-esa-2024/projects/01_javaee/music-player/src/main/java/ru/niatomi/musicplayer/service/StupidService.java
+/home/nia/Desktop/su-esa-2024/projects/01_javaee/music-player/src/main/java/ru/niatomi/musicplayer/dao/impl/ArtistDAO.java
+/home/nia/Desktop/su-esa-2024/projects/01_javaee/music-player/src/main/java/ru/niatomi/musicplayer/view/utils/PathResolver.java
+/home/nia/Desktop/su-esa-2024/projects/01_javaee/music-player/src/main/java/ru/niatomi/musicplayer/models/domain/Song.java
+/home/nia/Desktop/su-esa-2024/projects/01_javaee/music-player/src/main/java/ru/niatomi/musicplayer/view/artists/ArtistServlet.java
+/home/nia/Desktop/su-esa-2024/projects/01_javaee/music-player/src/main/java/ru/niatomi/musicplayer/service/ArtistsService.java
+/home/nia/Desktop/su-esa-2024/projects/01_javaee/music-player/src/main/java/ru/niatomi/musicplayer/models/domain/Artist.java
+/home/nia/Desktop/su-esa-2024/projects/01_javaee/music-player/src/main/java/ru/niatomi/musicplayer/dao/impl/SongDAO.java
+/home/nia/Desktop/su-esa-2024/projects/01_javaee/music-player/src/main/java/ru/niatomi/musicplayer/view/artists/ArtistsServlet.java
+/home/nia/Desktop/su-esa-2024/projects/01_javaee/music-player/src/main/java/ru/niatomi/musicplayer/dao/impl/AlbumDAO.java
+/home/nia/Desktop/su-esa-2024/projects/01_javaee/music-player/src/main/java/ru/niatomi/musicplayer/view/Album.java
+/home/nia/Desktop/su-esa-2024/projects/01_javaee/music-player/src/main/java/ru/niatomi/musicplayer/models/domain/Album.java
+/home/nia/Desktop/su-esa-2024/projects/01_javaee/music-player/src/main/java/ru/niatomi/musicplayer/view/utils/HTMLComponents.java
+/home/nia/Desktop/su-esa-2024/projects/01_javaee/music-player/src/main/java/ru/niatomi/musicplayer/view/Song.java
+/home/nia/Desktop/su-esa-2024/projects/01_javaee/music-player/src/main/java/ru/niatomi/musicplayer/service/ArtistService.java
+/home/nia/Desktop/su-esa-2024/projects/01_javaee/music-player/src/main/java/ru/niatomi/musicplayer/dao/GenericDAO.java
+/home/nia/Desktop/su-esa-2024/projects/01_javaee/music-player/src/main/java/ru/niatomi/musicplayer/view/utils/JSFetchArgs.java

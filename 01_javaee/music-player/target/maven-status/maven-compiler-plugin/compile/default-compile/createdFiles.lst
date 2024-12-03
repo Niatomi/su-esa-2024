@@ -1,0 +1,16 @@
+ru/niatomi/musicplayer/dao/impl/SongDAO.class
+ru/niatomi/musicplayer/view/AlbumServlet.class
+ru/niatomi/musicplayer/dao/impl/ArtistDAO.class
+ru/niatomi/musicplayer/view/utils/JSFetchArgs.class
+ru/niatomi/musicplayer/service/ArtistsService.class
+ru/niatomi/musicplayer/models/domain/Artist.class
+ru/niatomi/musicplayer/models/domain/Song.class
+ru/niatomi/musicplayer/models/domain/Album.class
+ru/niatomi/musicplayer/view/artists/ArtistsServlet.class
+ru/niatomi/musicplayer/view/artists/ArtistServlet.class
+ru/niatomi/musicplayer/service/AlbumService.class
+ru/niatomi/musicplayer/view/utils/HTMLComponents.class
+ru/niatomi/musicplayer/service/ArtistService.class
+ru/niatomi/musicplayer/dao/impl/AlbumDAO.class
+ru/niatomi/musicplayer/dao/GenericDAO.class
+ru/niatomi/musicplayer/view/utils/PathResolver.class
