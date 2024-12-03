@@ -1,0 +1,19 @@
+server:
+  port: 9999
+  servlet:
+    context-path: /
+spring:
+  application:
+    name: music-player
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/music_bucket
+    username: postgres
+    password: postgres
+  jpa:
+    show-sql: true
+springdoc:
+  api-docs:
+    path: /docs
+  swagger-ui:
+    path: /docs/swagger.html

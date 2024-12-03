@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="#stylesheet"?>
+<doc>
+    <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+        <xsl:stylesheet version="1.0" id="stylesheet" xml:id="stylesheet"
+                        xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+            <xsl:template match="/">
+                <html>
+                    <body>
+                        <div style="display: flex; flex-direction: row; gap: 1rem">
+                            <a href='Song'>Songs</a>
+                            <a href='Album'>Albums</a>
+                            <a href='Artist'>Artists</a>
+                        </div>
+                        <xsl:for-each select="//ArrayList/item">
+                            <div style="display: flex; flex-direction: row; gap: 1rem">
+                                <h1>
+                                    <xsl:value-of select="id" />
+                                </h1>
+                                <h1>
+                                    <xsl:value-of select="name" />
+                                </h1>
+                                <h1>
+                                    <xsl:value-of select="albumName" />
+                                </h1>
+                            </div>
+                            <xsl:for-each
+                                    select="songs/songs">
+                                <hr />
+                                <div style="display: flex; flex-direction: row; gap: 1rem">
+                                    <p>
+                                        <xsl:value-of select="id" />
+                                    </p>
+                                    <p>
+                                        <xsl:value-of select="name" />
+                                    </p>
+                                    <p>
+                                        <xsl:value-of select="albumName" />
+                                    </p>
+                                </div>
+                                <p>
+                                    Listen count: <xsl:value-of select="listenCount" />
+                                </p>
+                                <hr />
+                            </xsl:for-each>
+                            <hr />
+                        </xsl:for-each>
+                    </body>
+                </html>
+            </xsl:template>
+
+        </xsl:stylesheet>
+
+    </xsl:stylesheet>
+
+    <dataPlaceholder/>
+
+</doc>

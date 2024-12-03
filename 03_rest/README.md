@@ -1,3 +1,17 @@
+# Report
+
+1. Сравнение в [TASK1_COMPARSION.md](./TASK1_COMPARSION.md) 
+2. Реализация в [AccessingController](./music-player/src/main/java/ru/niatomi/music_player/controller/rest/impl/AccessingControllerImpl.java)
+3.
+### Данные в формате JSON
+![](report_assets/json_data.png)
+### XML альбомы
+![](report_assets/albums_xml.png)
+### XML артисты
+![](report_assets/artists_xml.png)
+### XML песни
+![](report_assets/songs_xml.png)
+
 # Practical Work #3
 
 RESTful web-service
