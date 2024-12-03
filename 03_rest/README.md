@@ -2,7 +2,7 @@
 
 1. Сравнение в [TASK1_COMPARSION.md](./TASK1_COMPARSION.md) 
 2. Реализация в [AccessingController](./music-player/src/main/java/ru/niatomi/music_player/controller/rest/impl/AccessingControllerImpl.java)
-3.
+3-5.
 ### Данные в формате JSON
 ![](report_assets/json_data.png)
 ### XML альбомы
