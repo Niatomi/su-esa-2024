@@ -27,7 +27,7 @@ spring:
     host: smtp.yandex.ru
     port: 465
     username: playervoker@yandex.ru
-    password: vrqmwdzbogcouwzd
+    password: 
     protocol: smtps
 springdoc:
   api-docs:
