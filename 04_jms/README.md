@@ -1,3 +1,20 @@
+# Report
+
+## События
+
+Реализовано 3 вида событий
+1. Выход альбома - когда у артиста выходит альбом им будет приходить уведомление
+2. Неправильная статистика - пригодится для администраторов, если по ошибке данные обновеления сломают существующую статистику (или в целом метаинформацию о сущности)
+3. "Юбилей прослушиваний" (колличество прослушиваний, которые делятся без остатка на 10) - плюс мотивация начинающим артистам, так как они смогут увидеть свою возрастающую популярность) 
+
+## Письмо при выходе альбома
+![](./report_assets/mail_release.png)
+## Письмо при неправильном изменении статистики
+![](./report_assets/wrong_stats_mail.png)
+## Письмо при юбилее
+![](./report_assets/listen_anniversary_mail.png)
+
+
 # Practical Work #4
 
 Java Message Service
@@ -30,7 +47,7 @@ Change your application to make it send a message to the destination object ever
 
 ## Task 4
 
-Develop MDB or MDP (depending on your technology platform) to receive these messages. Then MDB or MDP should check message’s type and structure, and then make a record into the dedicated table.
+Develop MDB or MDP (depending on your technology platform) to receive these messages. Then MDB or MDP should check message's type and structure, and then make a record into the dedicated table.
 
 ## Task 5
 

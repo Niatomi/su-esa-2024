@@ -3,6 +3,6 @@
 INSERT INTO 
 public.artists(name)
 VALUES 
-('Metalica'),
+('Metallica'),
 ('Periphery'),
 ('Pantera');

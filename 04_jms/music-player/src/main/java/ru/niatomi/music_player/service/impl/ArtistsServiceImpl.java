@@ -3,6 +3,7 @@ package ru.niatomi.music_player.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.niatomi.music_player.events.publisher.EventPublisher;
 import ru.niatomi.music_player.exceptions.NotFoundException;
 import ru.niatomi.music_player.models.domain.Album;
 import ru.niatomi.music_player.models.domain.Artist;
@@ -24,6 +25,9 @@ public class ArtistsServiceImpl implements ArtistService {
 
     @Autowired
     private SongRepository songRepository;
+
+    @Autowired
+    private EventPublisher eventPublisher;
 
     @Override
     public List<Artist> getAllArtists() {
@@ -56,5 +60,14 @@ public class ArtistsServiceImpl implements ArtistService {
             song.setListenCount(song.getListenCount() + 1);
         }
         songRepository.saveAll(songsCopy);
+        for (Song song: songsCopy) {
+            eventPublisher.sendChange(
+                song.getTableName(),
+                song.getColumnName("listenCount"),
+                song.getId(),
+                    song.getListenCount() - 1,
+                song.getListenCount()
+            );
+        }
     }
 }
